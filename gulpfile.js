@@ -9,9 +9,7 @@ var gulp         = require( 'gulp' ),
 	concat       = require( 'gulp-concat' ),
 	notify       = require( 'gulp-notify' ),
 	plumber      = require( 'gulp-plumber' ),
-	stylish      = require( 'jshint-stylish' ),
 	minifycss    = require( 'gulp-clean-css' ),
-	browserSync  = require( 'browser-sync' ),
 	autoprefixer = require( 'gulp-autoprefixer' ),
 	project      = 'woocommerce-drop-shop';
 
@@ -74,17 +72,6 @@ gulp.task( 'sass-compile', function() {
 		.pipe( minifycss() )
 		.pipe( gulp.dest( target.css_dest ) )
 		.pipe( notify( { message: project + ': SASS processed!' } ) );
-});
-
-
-/*******************************************************************************
-BROWSER SYNC
-*******************************************************************************/
-
-gulp.task( 'browser-sync', function() {
-	browserSync.init( ['./plugin-assets/css/*.css', './plugin-assets/js/*.js'], {
-		proxy: 'http://localhost/gitwooplugins/'
-	});
 });
 
 /*******************************************************************************

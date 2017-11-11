@@ -13,7 +13,6 @@ class WC_Drop_Shop_Frontend_Ajax {
 	/**
 	 * init
 	 *
-	 * @access public
 	 * @since 1.0.0
 	 * @return bool
 	 */
@@ -32,14 +31,13 @@ class WC_Drop_Shop_Frontend_Ajax {
 		return true;
 	}
 
-	public function instance() {
+	public static function instance() {
 		return self::$_this;
 	}
 
 	/**
 	 * Cart display on ajax refresh
 	 *
-	 * @access public
 	 * @since 1.0.0
 	 * @return string $output the HTML of the cart
 	 */
@@ -48,16 +46,18 @@ class WC_Drop_Shop_Frontend_Ajax {
 
 		// bail if nonce don't match
 		if ( ! wp_verify_nonce( $nonce, 'wc_drop_shop_ajax_refresh_cart_nonce' ) ) {
-			//wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-drop-shop' ) );
+			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-drop-shop' ) );
 		}
 
-		include( 'class-wc-drop-shop-helper.php' );
+		include( dirname( __FILE__ ) . '/class-wc-drop-shop-helper.php' );
 
 		do_action( 'woocommerce_drop_shop_before_cart' );
 
 		$cart = '';
 		
-		WC()->cart->init();
+		if ( version_compare( WC_VERSION, '3.2', '<' ) ) {
+			WC()->cart->init();
+		}
 		
 		// get the dropshop template
 		ob_start();
@@ -88,7 +88,6 @@ class WC_Drop_Shop_Frontend_Ajax {
 	/**
 	 * Remove item function
 	 *
-	 * @access public
 	 * @since 1.0.0
 	 * @return boolean true
 	 */
@@ -97,7 +96,7 @@ class WC_Drop_Shop_Frontend_Ajax {
 
 		// bail if nonce don't match
 		if ( ! wp_verify_nonce( $nonce, 'wc_drop_shop_ajax_remove_item_nonce' ) ) {
-			//wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-drop-shop' ) );
+			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-drop-shop' ) );
 		}
 
 		$cart_id = $_POST['cart_id'];
@@ -121,7 +120,6 @@ class WC_Drop_Shop_Frontend_Ajax {
 	/**
 	 * Add to cart when no add to cart button is found
 	 *
-	 * @access public
 	 * @since 1.0.0
 	 * @return boolean true
 	 */
@@ -132,7 +130,7 @@ class WC_Drop_Shop_Frontend_Ajax {
 
 		// bail if nonce don't match
 		if ( ! wp_verify_nonce( $nonce, 'wc_drop_shop_ajax_add_to_cart_nonce' ) ) {
-			//wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-drop-shop' ) );
+			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-drop-shop' ) );
 		}
 
 		$product_id   = apply_filters( 'woocommerce_add_to_cart_product_id', $_POST['product_id'] );
@@ -141,12 +139,14 @@ class WC_Drop_Shop_Frontend_Ajax {
 		$variations   = empty( $_POST['variations'] ) ? '' : $_POST['variations'];
 
 		// get the product type
-		$product = get_product( $product_id );
+		$product = version_compare( WC_VERSION, '3.0', '<' ) ? get_product( $product_id ) : wc_get_product( $product_id );
 
 		// set post global
 		$post = get_post( $product_id );
 
-		switch( $product->product_type ) {
+		$product_type = version_compare( WC_VERSION, '3.0', '<' ) ? $product->product_type : $product->get_type();
+
+		switch ( $product_type ) {
 			case 'simple' :
 				// Add to cart validation
 				$passed_validation 	= apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );

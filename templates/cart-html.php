@@ -13,7 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 $cart_image_width = apply_filters( 'woocommerce_drop_shop_horizontal_item_image_width', 80 );
 $cart_image_height = apply_filters( 'woocommerce_drop_shop_horizontal_item_image_height', 80 );
 
-$settings = WC_Drop_Shop_Helper::get_settings();
+$settings  = WC_Drop_Shop_Helper::get_settings();
+$cart_only = isset( $settings['cart_only'] ) ? $settings['cart_only'] : 'no';
 ?> 
 	<div class="woocommerce-drop-shop-center-wrap group">
 		<i class="woocommerce-drop-shop-tab dashicons <?php echo esc_attr( apply_filters( 'woocommerce_drop_shop_cart_tab_icon', 'dashicons-cart' ) ); ?>"></i>
@@ -76,7 +77,12 @@ $settings = WC_Drop_Shop_Helper::get_settings();
 
 					<p class="woocommerce-drop-shop-cart-empty">
 
-					<span><?php apply_filters( 'woocommerce_drop_shop_empty_cart_text', _e( 'drop items here', 'woocommerce-drop-shop' ) ); ?></span>
+					<?php
+					$empty_cart_text = 'no' === $cart_only ? __( 'drop items here', 'woocommerce-drop-shop' ) : __( 'empty cart', 'woocommerce-drop-shop' );
+					$empty_cart_text = apply_filters( 'woocommerce_drop_shop_empty_cart_text', $empty_cart_text ); 
+					?>
+							
+					<span><?php echo $empty_cart_text; ?></span>
 					<i class="dashicons <?php echo esc_attr( apply_filters( 'woocommerce_drop_shop_cart_empty_icon', 'dashicons-download' ) ); ?>" aria-hidden="true"></i>
 
 					</p>
@@ -90,9 +96,9 @@ $settings = WC_Drop_Shop_Helper::get_settings();
 			<div class="woocommerce-drop-shop-action group">
 				<p class="woocommerce-drop-shop-cart-total"><?php printf( '%s &nbsp; %s', apply_filters( 'woocommerce_drop_shop_subtotal_text', __( 'Sub-Total:', 'woocommerce-drop-shop' ) ), WC()->cart->get_cart_subtotal() ); ?></p>
 
-				<a href="<?php echo esc_url( WC()->cart->get_cart_url() ); ?>" title="<?php apply_filters( 'woocommerce_drop_shop_view_cart_text', esc_attr_e( 'View Cart', 'woocommerce-drop-shop' ) ); ?>" class="woocommerce-drop-shop-viewcart-button button"><?php apply_filters( 'woocommerce_drop_shop_view_cart_text', _e( 'View Cart', 'woocommerce-drop-shop' ) ); ?></a> 
+				<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" title="<?php apply_filters( 'woocommerce_drop_shop_view_cart_text', esc_attr_e( 'View Cart', 'woocommerce-drop-shop' ) ); ?>" class="woocommerce-drop-shop-viewcart-button button"><?php apply_filters( 'woocommerce_drop_shop_view_cart_text', _e( 'View Cart', 'woocommerce-drop-shop' ) ); ?></a> 
 
-				<a href="<?php echo esc_url( WC()->cart->get_checkout_url() ); ?>" title="<?php apply_filters( 'woocommerce_drop_shop_checkout_button_text', esc_attr_e( 'Checkout', 'woocommerce-drop-shop' ) ); ?>" class="woocommerce-drop-shop-checkout-button button"><?php apply_filters( 'woocommerce_drop_shop_checkout_button_text', _e( 'Checkout', 'woocommerce-drop-shop' ) ); ?></a> 
+				<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" title="<?php apply_filters( 'woocommerce_drop_shop_checkout_button_text', esc_attr_e( 'Checkout', 'woocommerce-drop-shop' ) ); ?>" class="woocommerce-drop-shop-checkout-button button"><?php apply_filters( 'woocommerce_drop_shop_checkout_button_text', _e( 'Checkout', 'woocommerce-drop-shop' ) ); ?></a> 
 
 			</div><!--.woocommerce-drop-shop-action-->
 

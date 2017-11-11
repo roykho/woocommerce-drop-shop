@@ -39,7 +39,6 @@ class WC_Drop_Shop_Helper {
 	/**
 	 * Gets the image if one is set to display in the cart
 	 *
-	 * @access public
 	 * @since 1.0.0
 	 * @param int $product_id Pass in a product id
 	 * @param int $variation_id Pass in a variation id

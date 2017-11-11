@@ -18,7 +18,6 @@ class WC_Drop_Shop_Admin {
 	/**
 	 * init
 	 *
-	 * @access public
 	 * @since 1.0.0
 	 * @return bool
 	 */
@@ -35,14 +34,13 @@ class WC_Drop_Shop_Admin {
     	return true;
 	}
 
-	public function instance() {
+	public static function instance() {
 		return self::$_this;
 	}
 
 	/**
 	 * Add setting section to products tab
 	 *
-	 * @access public
 	 * @since 1.0.0
 	 * @return bool
 	 */

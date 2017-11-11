@@ -222,15 +222,15 @@ $cart_hide: -130px;
 							list-style:none;
 							.woocommerce-drop-shop-item-count {
 								position:absolute;
-								bottom:0;
+								bottom:28px;
 								left:0;
 								background-color:#666;
 								color:#fff;
 								display:inline-block;
 								text-align:center;
 								vertical-align:middle;
-								padding:2px 5px;
-								font-size:11px;
+								padding:1px 5px;
+								font-size:10px;
 							}
 
 							.woocommerce-drop-shop-item-remover {
@@ -514,3 +514,18 @@ $cart_hide: -130px;
 		}
 	}
 } // .woocommerce-drop-shop-variation-popup-container
+
+@media only screen 
+and (min-width : 375px) 
+and (max-width : 480px) {
+	.woocommerce-drop-shop-wrapper, .woocommerce-drop-shop-inner-wrap { height: auto !important; }
+	.woocommerce-drop-shop-inlay { float: none !important; padding-bottom: 30px !important; }
+	.woocommerce-drop-shop-action { float: none !important; margin: 0 !important; top: 0 !important; padding-bottom: 20px !important; }
+}
+
+@media only screen 
+and (min-width : 481px) {
+	.woocommerce-drop-shop-wrapper, .woocommerce-drop-shop-inner-wrap { height: 140px !important; }
+	.woocommerce-drop-shop-inlay { float: left !important; padding: 0 30px !important; }
+	.woocommerce-drop-shop-action { float: left !important; margin: -40px 0 0 40px !important; top: 50% !important; padding-bottom: 0 !important; }
+}

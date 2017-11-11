@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Drop Shop
  * Plugin URI: https://wordpress.org/plugins/woocommerce-drop-shop/
  * Description: Adds a drag and drop cart to your footer for easier and fun purchase.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Roy Ho
  * Author URI: http://royho.me
  * Text Domain: woocommerce-drop-shop
  * Domain Path: /languages
- * Copyright: (c) 2015 Roy Ho
+ * Copyright: (c) 2017 Roy Ho
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -38,11 +38,11 @@ class WC_Drop_Shop {
 		if ( is_woocommerce_active() ) {
 			
 			if ( is_admin() ) {
-				include_once( 'includes/class-wc-drop-shop-admin.php' );
+				include_once( dirname( __FILE__ ) . '/includes/class-wc-drop-shop-admin.php' );
 
-				include_once( 'includes/class-wc-drop-shop-frontend-ajax.php' );
+				include_once( dirname( __FILE__ ) . '/includes/class-wc-drop-shop-frontend-ajax.php' );
 			} else {
-				include_once( 'includes/class-wc-drop-shop-frontend.php' );
+				include_once( dirname( __FILE__ ) . '/includes/class-wc-drop-shop-frontend.php' );
 			}
 
 		} else {

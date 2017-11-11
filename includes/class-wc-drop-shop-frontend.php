@@ -29,18 +29,36 @@ class WC_Drop_Shop_Frontend {
 
 		add_action( 'wp_footer', array( $this, 'render_cart' ) );
 
+		add_action( 'wp', array( $this, 'set_session' ) );
+
     	return true;
 	}
 
-	public function instance() {
+	public static function instance() {
 		return self::$_this;
+	}
+
+	/**
+	 * Sets the WC customer session if one is not set.
+	 * This is needed so nonces can be verified.
+	 *
+	 * @since 1.0.5
+	 * @version 1.0.5
+	 */
+	public function set_session() {
+		if ( ! is_user_logged_in() ) {
+			$wc_session = new WC_Session_Handler();
+			if ( ! $wc_session->has_session() ) {
+				$wc_session->set_customer_session_cookie( true );
+			}
+		}
 	}
 
 	/**
 	 * Loads the necessary frontend scripts
 	 *
-	 * @access public
 	 * @since 1.0.0
+	 * @version 1.0.5
 	 * @return boolean true
 	 */
 	public function load_scripts() {
@@ -54,6 +72,8 @@ class WC_Drop_Shop_Frontend {
 		wp_enqueue_script( 'jquery-ui-draggable' );
 
 		wp_enqueue_script( 'jquery-ui-droppable' );
+
+		wp_enqueue_script( 'woocommerce-drop-shop-touch-punch-script', plugins_url( 'plugin-assets/js/vendor/jquery-touch-punch.min.js', dirname( __FILE__ ) ), array( 'jquery' ), '0.2.3', true );  
 
 		wp_enqueue_script( 'woocommerce-drop-shop-script', plugins_url( 'plugin-assets/js/drop-shop' . $suffix . '.js', dirname( __FILE__ ) ), array( 'jquery' ), '1.0.0', true );  
 		
@@ -77,7 +97,6 @@ class WC_Drop_Shop_Frontend {
 	/**
 	 * Renders the cart
 	 *
-	 * @access public
 	 * @since 1.0.0
 	 * @version 1.0.2
 	 * @return boolean true
