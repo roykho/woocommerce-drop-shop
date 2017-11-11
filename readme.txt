@@ -46,26 +46,26 @@ Please go here to submit your issue and be as detailed as possible stating each 
 == Upgrade Notice ==
 
 = 1.0.5 | 11/11/17 =
-Update - WC 3.0+ compatibility.
-Tweak - Styling changes.
+* Update - WC 3.0+ compatibility.
+* Tweak - Styling changes.
 
 == Changelog ==
 
 = 1.0.5 | 11/11/17 =
-Update - WC 3.0+ compatibility.
-Tweak - Styling changes.
+* Update - WC 3.0+ compatibility.
+* Tweak - Styling changes.
 
 = 1.0.4 | 4/28/16 =
-Fix - Add to cart session issue.
+* Fix - Add to cart session issue.
 
 = 1.0.3 | 3/20/16 =
-Fix - Add to cart not working when not logged in.
+* Fix - Add to cart not working when not logged in.
 
 = 1.0.2 | 7/8/15 =
-Tweak - Show cart in product category and single pages
+* Tweak - Show cart in product category and single pages
 
 = 1.0.1 =
-Updated readme.txt to provide more instructions
+* Updated readme.txt to provide more instructions
 
 = 1.0.0 =
-Release
+* Release
